@@ -8,6 +8,8 @@ import theme from "./Themes/landing-themes";
 import Web3 from "web3"
 import {detectCurrentProvider, onConnect} from "./Login";
 import {useEffect, useState} from "react";
+import GreeterABI from "../abi/abis";
+import User from "../abi/abis";
 
 
 
@@ -43,9 +45,7 @@ function Landing(props)
                 const userAccount  =await web3.eth.getAccounts();
                 const account = userAccount[0].toString();
                 let ethBalance = await web3.eth.getBalance(account);
-                console.log("The user account is", userAccount[0]);
                 setIsConnected(true);
-                console.log("the eth balance is", ethBalance)
                 if(isConnected)
                 {
                     props.onBalanceUpdate(ethBalance);
@@ -57,11 +57,6 @@ function Landing(props)
             console.log(err);
         }
     }
-
-    const onDisconnect = () => {
-        setIsConnected(false);
-    }
-
 
     return(
         <ThemeProvider theme={theme}>

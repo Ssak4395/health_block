@@ -7,9 +7,9 @@ const app = express()
 const db = mysql.createConnection(
     {
         user:'root',
-        host:'35.201.25.182',
+        host:'localhost',
         password:'kki12345',
-        database:'health-block-dev'
+        database:';[;p'
     }
 );
 
@@ -41,6 +41,6 @@ app.post('/create',jsonParser,(req,res) => {
 })
 
 app.listen(3001,()=>{
-    console.log("yay i am working")
+    console.log(process.env.DISCORDTOKEN,"yay i am working")
 })
 

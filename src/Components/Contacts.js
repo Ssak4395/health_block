@@ -1,11 +1,10 @@
 import axios from "axios";
+import {Card} from "@mui/material";
+import CardButton from "./Card";
+import Cards from "./Cards";
 
 function Contacts(props){
-    console.log("The balance is", props.balance)
-    let result1;
-    console.log("AccountAddress", props.public_address);
-
-
+/*
     axios(
         {
             method:'get',
@@ -26,10 +25,17 @@ function Contacts(props){
         console.log("The result is",result.status);
     },(error) => {
         console.log(error)
-    });
+    });*/
 
     return(
-        <div> Successfully commited address is {props.public_address} and the result is {result1}</div>
+        <div>
+            <body style={{backgroundColor:"white"}}>
+            <h1 style={{textAlign:'center',paddingTop:'100px',color:"black"}}>To get started, please select your role!</h1>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+                <Cards></Cards>
+            </div>
+            </body>
+        </div>
     );
 }
 export default Contacts;
