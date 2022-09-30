@@ -3,27 +3,20 @@ import {Box, Button, styled, ThemeProvider, Typography} from "@mui/material";
 import videobg from "../assets/video/videobg.mp4"
 import {LoginButton} from "./Buttons";
 import {Routes, Route, useNavigate} from 'react-router-dom';
-import Contacts from "./Contacts";
 import theme from "./Themes/landing-themes";
 import Web3 from "web3"
-import {detectCurrentProvider, onConnect} from "./Login";
 import {useEffect, useState} from "react";
-import GreeterABI from "../abi/abis";
-import User from "../abi/abis";
+import axios from "axios";
 
 
 
 
 function Landing(props)
 {
-    console.log("the props are", props)
     const navigate = useNavigate();
-    const navigateToContacts = () => {
-        // 👇️ navigate to /contacts
-        navigate('/contacts');
-    };
     const [isConnected, setIsConnected] = useState(false);
-    const setEthBalance = props.onBalanceUpdate();
+
+
     const detectCurrentProvider = () => {
         let provider;
         if (window.ethereum) {
@@ -46,11 +39,34 @@ function Landing(props)
                 const account = userAccount[0].toString();
                 let ethBalance = await web3.eth.getBalance(account);
                 setIsConnected(true);
+
                 if(isConnected)
                 {
+                    props.setProvider(web3)
                     props.onBalanceUpdate(ethBalance);
                     props.onAddressUpdate(account);
-                    navigate("/contacts")
+
+                    /*console.log(userAccount[0].toString())
+
+                    // Call Search API to check whether Wallet Address exists in database.
+                    const params = new URLSearchParams([['address',userAccount[0].toString()]]);
+
+                    const doesExist = await axios.get("http://localhost:3001/search",{params})
+
+
+
+                    if(doesExist.data.result.length === 0 && doesExist.status === 200 && userAccount[0] !== "" && userAccount[0] !== undefined){
+                        const pushToDatabase = await axios.post("http://localhost:3001/add",{
+                            public_address:userAccount[0].toString()
+                        }
+                        )
+                            alert("pushed to database");
+                            navigate("/Register");
+                    }else{
+                        alert("TODO IMPLEMENT DASHBOARD")
+                    }
+*/
+                    navigate("/Register");
                 }
             }
         } catch(err) {
@@ -70,16 +86,6 @@ function Landing(props)
                             <LoginButton onClick={onConnect}variant="contained">
                                 <Typography color="white" fontSize="30px">
                                     Login
-                                </Typography>
-                            </LoginButton>
-                        </Box>
-
-                    </div>
-                    <div className="Login-Button">
-                        <Box m={1.2} pt={0}>
-                            <LoginButton onClick={onConnect} variant="contained">
-                                <Typography color="white" fontSize="30px">
-                                    Register
                                 </Typography>
                             </LoginButton>
                         </Box>

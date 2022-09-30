@@ -3,6 +3,7 @@ import Card from "./Card";
 import doctor from "../assets/images/Doctor.png"
 import patient from "../assets/images/Patient.png"
 import chemist from "../assets/images/Chemist.png"
+import CardButton from "./Card";
 
 const Cards = props => {
    const chemistTitle = "Pathologist"
@@ -19,13 +20,13 @@ const Cards = props => {
         <div className="container-fluid d-flex justify-content-center">
          <div className="row">
              <div className="col-md-4">
-                 <Card location={doctor} title={doctorTitle} className1={className1Doctor} className2={className2Doctor} paragraph={doctorPara}></Card>
+                 <CardButton public_address = {props.public_address} location={doctor} title={doctorTitle} className1={className1Doctor} className2={className2Doctor} paragraph={doctorPara} web3_provider = {props.web_3_provider}></CardButton>
              </div>
              <div className="col-md-4">
-                 <Card location={patient} title={patientTitle}  paragraph={patientPara}></Card>
+                 <CardButton public_address = {props.public_address} location={patient} title={patientTitle}  paragraph={patientPara} web3_provider = {props.web_3_provider}></CardButton>
              </div>
              <div className="col-md-4">
-                 <Card location={chemist} title={chemistTitle}  paragraph={chemistPara}></Card>
+                 <CardButton public_address = {props.public_address} location={chemist} title={chemistTitle}  paragraph={chemistPara} web3_provider = {props.web_3_provider}></CardButton>
              </div>
          </div>
         </div>
