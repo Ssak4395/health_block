@@ -5,7 +5,7 @@ import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
 import Register from "./Components/Register";
 import FormUser from "./Components/FormUser"
 import {useState} from "react";
-import Dashboard from "./Components/Dashboard";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 function App() {
     const[ethBalance, setEthBalance] = useState(" ");

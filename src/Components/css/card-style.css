@@ -6,8 +6,31 @@
     background-color: #FFF689
 }
 
+.bgPrescriptionCard{
+    background-color: #ef7979
+}
+
+.bgBooking{
+    background-color: #5bb0de
+}
+
+.bgBlack{
+    background-color: #ffffff
+}
+
+.bgUpload{
+    background-color: #deb05b
+
+}
+
+.radius{
+    border-radius: 25px;
+}
+
 .card{
     width:20rem;
+    border-radius: 25px;
+
 
 }
 
@@ -17,6 +40,8 @@
 
 .card-body{
     padding:3rem;
+
+
 }
 
 .card-text{
