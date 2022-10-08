@@ -7,6 +7,7 @@ import theme from "./Themes/landing-themes";
 import Web3 from "web3"
 import {useEffect, useState} from "react";
 import axios from "axios";
+import User from "../abi/abis";
 
 
 
@@ -46,13 +47,13 @@ function Landing(props)
                     props.onBalanceUpdate(ethBalance);
                     props.onAddressUpdate(account);
 
-                    /*console.log(userAccount[0].toString())
-
-                    // Call Search API to check whether Wallet Address exists in database.
-                    const params = new URLSearchParams([['address',userAccount[0].toString()]]);
+                /*    const params = new URLSearchParams([['address',userAccount[0].toString()]]);
 
                     const doesExist = await axios.get("http://localhost:3001/search",{params})
 
+                    const UserContract = new web3.eth.Contract(User.value,"0x7887d3bdc914eC484513F9E2c5E20B7F137218C1",{
+                        from:userAccount[0].toString()
+                    })
 
 
                     if(doesExist.data.result.length === 0 && doesExist.status === 200 && userAccount[0] !== "" && userAccount[0] !== undefined){
@@ -61,11 +62,18 @@ function Landing(props)
                         }
                         )
                             alert("pushed to database");
+                            const result = await UserContract.methods.createUser(userAccount[0]).send();
+                            console.log("The result of smart contract call was", result)
                             navigate("/Register");
                     }else{
                         alert("TODO IMPLEMENT DASHBOARD")
-                    }
-*/
+                    }*/
+
+                    const UserContract = new web3.eth.Contract(User.value,"0x8b44D1Cd7Ea0021280B40384165b8a2aF42c4dE2",{
+                        from:userAccount[0].toString()
+                    })
+                    const result = await UserContract.methods.getUserRole(userAccount[0]).call();
+                    console.log("The result from smart contract is ", result)
                     navigate("/Register");
                 }
             }
