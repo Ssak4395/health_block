@@ -73,6 +73,7 @@ app.post("/submit-details",(req,res) => {
 
 app.get("/search",(req,res) => {
     const public_address = req.query.address;
+    var resultArray = [];
     console.log("Searching to check if" + public_address + " exists in database" );
     db.query("SELECT public_address FROM users WHERE public_address= ?",[public_address], (err, result) => {
         if(err)
@@ -90,8 +91,44 @@ app.get("/search",(req,res) => {
     })
 })
 
+app.get("/all-user-addresses",(req,res)=>{
+    db.query("SELECT public_address,first_name,last_name FROM users",(err,result)=>{
+        if (err) {
+            res.send(err);
+        } else {
 
 
+            res.json({
+                result: result
+            })
+        }
+    })
+})
+
+
+app.post("/submit-approve",(req,res)=>{
+    var responseJSON = JSON.stringify(req.body.approve);
+
+    console.log(responseJSON)
+    db.query("UPDATE users SET approved_users=? WHERE public_address=?",[responseJSON,req.body.address],(err,result)=>{
+        if(err){
+           res.send(err)
+        }else {
+            res.send("200");
+        }
+    });
+})
+
+app.get("/get-approve-list",(res,req) => {
+    const public_address = req.query.address;
+    db.query("SELECT approved_users FROM users WHERE public_address=?",[public_address],(err,result)=> {
+        if(err){
+            res.send(err);
+        }else{
+            res.send("200");
+        }
+    })
+})
 
 app.listen(3001,()=>{
     console.log(process.env.DISCORDTOKEN,"yay i am working")
