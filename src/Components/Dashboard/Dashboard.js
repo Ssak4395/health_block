@@ -8,7 +8,7 @@ const Dashboard = (props) => {
     return(
         <div className="MainDiv">
             <Menu/>
-            <Container/>
+            <center><Container/></center>
         </div>
     );
 }

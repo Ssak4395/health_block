@@ -46,6 +46,7 @@ function Landing(props)
                     props.setProvider(web3)
                     props.onBalanceUpdate(ethBalance);
                     props.onAddressUpdate(account);
+                    localStorage.setItem("public_address",account);
 
                 /*    const params = new URLSearchParams([['address',userAccount[0].toString()]]);
 

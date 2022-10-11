@@ -7,6 +7,7 @@ import FormUser from "./Components/FormUser"
 import {useState} from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import RequestApproval from "./Prescription/RequestApproval";
+import Approvals from "./Prescription/Approvals";
 
 function App() {
     const[ethBalance, setEthBalance] = useState(" ");
@@ -26,8 +27,9 @@ function App() {
            <Route  path="/" element={<Landing onBalanceUpdate={setBalance} onAddressUpdate={setPublic_address} setProvider = {setWeb3Provider}/>}></Route>
            <Route path="/Register" element={<Register balance={ethBalance} public_address={public_address} web3_provider = {web3Provider}  />} />
            <Route path="/Profile" element={<FormUser public_address={public_address}/>}/>
-           <Route path="/Dashboard" element={<Dashboard/>}/>
-           <Route path="/Dashboard/Request-Approval" element={<RequestApproval/>}/>
+           <Route path="/Dashboard" element={<Dashboard public_address={public_address}/>}/>
+           <Route path="/Dashboard/Request-Approval" element={<RequestApproval public_address={public_address}/>}/>
+           <Route path="/Dashboard/Approvals" element={<Approvals/>}/>
        </Routes>
       </Router>
 

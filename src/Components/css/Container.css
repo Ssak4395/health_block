@@ -140,12 +140,13 @@
 .flexbox-container {
     display: flex;
     flex-direction: row;
-    padding: 80px;
+    padding-top: 100px;
 
 }
 
 .card-div {
     margin-right: 90px;
+    padding-top: 30px;
 }
 .profileContainer .menuContainer ul li {
     list-style: none;
@@ -177,4 +178,14 @@
         width: 320px;
         transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+
+}
+#inner {
+    display: table;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+.outer {
+    border: 1px solid red;
+    width:100%
 }

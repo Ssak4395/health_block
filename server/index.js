@@ -105,32 +105,53 @@ app.get("/all-user-addresses",(req,res)=>{
     })
 })
 
+app.get("/get-user",(req,res)=>{
+    const public_address = req.query.address;
+    console.log("the public address is", public_address)
+    db.query("SELECT first_name,last_name,approved_users FROM users WHERE public_address=?",[public_address],((err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            console.log(result[0].approved_users)
+            res.json({
+                approved_users: result[0].approved_users,
+                first_name: result[0].first_name,
+                last_name: result[0].last_name
+
+            });
+        }
+    }))
+})
+
 
 app.post("/submit-approve",(req,res)=>{
-    var responseJSON = JSON.stringify(req.body.approve);
-
-    console.log(responseJSON)
-    db.query("UPDATE users SET approved_users=? WHERE public_address=?",[responseJSON,req.body.address],(err,result)=>{
+    console.log("the request body is", req.body)
+    db.query("UPDATE users SET approved_users=? WHERE public_address=?",[req.body.approve,req.body.address],(err,result)=>{
         if(err){
            res.send(err)
         }else {
-            res.send("200");
+            console.log("the result is", result)
+            res.send(result);
         }
     });
 })
 
-app.get("/get-approve-list",(res,req) => {
+app.get("/approve-list",(req,res) => {
+    console.log("code reached here")
     const public_address = req.query.address;
+    console.log("The public address is", public_address)
     db.query("SELECT approved_users FROM users WHERE public_address=?",[public_address],(err,result)=> {
         if(err){
+            console.log("The error is", err)
             res.send(err);
         }else{
-            res.send("200");
+            console.log(result[0].approved_users)
+            res.send(result[0].approved_users);
         }
     })
 })
 
 app.listen(3001,()=>{
-    console.log(process.env.DISCORDTOKEN,"yay i am working")
+    console.log("yay i am working")
 })
 

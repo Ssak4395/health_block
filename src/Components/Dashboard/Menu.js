@@ -9,7 +9,10 @@ import {
 } from "react-icons/fa";
 import {blue} from "@mui/material/colors";
 import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 const Menu = (props) =>{
+
+    const navigate = useNavigate();
 
     useEffect(()=> {
         const mainMenuLi = document.getElementById("mainMenu").querySelectorAll("li");
@@ -23,11 +26,15 @@ const Menu = (props) =>{
 
     })
 
+    const approvalsPage = () => {
+        navigate("/Dashboard/Approvals");
+    }
+
 
     return (
         <menu>
             <ul id="mainMenu">
-                <Icon icon={<FaUser size={40} />} />
+                <Icon onClick={()=>alert("Hi")} icon={<FaUser onClick={approvalsPage} size={40} />} />
                 <Icon icon={<FaPrescriptionBottleAlt size={40}/>} />
                 <Icon icon={<FaCloudUploadAlt size={40} />} />
                 <Icon icon={<FaCalendarPlus size={40} />} />
