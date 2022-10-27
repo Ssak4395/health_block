@@ -110,6 +110,25 @@ let User = {
             "inputs": [
                 {
                     "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getApprovedArray",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
                     "name": "_address",
                     "type": "address"
                 }
@@ -122,7 +141,7 @@ let User = {
                     "type": "string"
                 }
             ],
-            "stateMutability": "nonpayable",
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -147,6 +166,19 @@ let User = {
                 }
             ],
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "testCall",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
             "type": "function"
         }
     ]

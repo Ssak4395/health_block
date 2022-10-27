@@ -2,7 +2,7 @@ const express = require('express')
 const mysql = require('mysql')
 var bodyParser = require('body-parser')
 const cors = require('cors');
-
+const {User} = require("./Models/User");
 const app = express()
 const db = mysql.createConnection(
     {
@@ -52,21 +52,31 @@ app.post('/add',(req,res) => {
 })
 
 
-app.post("/submit-details",(req,res) => {
-
-    db.query("UPDATE users SET first_name = ?, last_name = ? ,address = ? ,date = ?,ihi_number=?,gender=? WHERE public_address=?",[req.body.first_name,req.body.last_name,req.body.address,req.body.date,req.body.ihi,req.body.gender,req.body.public_address],(err,result) => {
-        if(err)
-        {
-            console.log(err)
+app.post("/prescribe-patient",(req,res)=>{
+    console.log("Prescribing prescription to patient")
+    console.log("The request is", req.body.doctor_public_address)
+    const timestamp = Date.now().toString();
+    const id = 1;
+    db.query("INSERT into prescription (doctor_public_address,created_date,drug_name,drug_manufacturer,patient_age,practice_id,drug_dosage,drug_frequency,doctor_name,doctor_license_number,patient_address) VALUES ( ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[req.body.doctor_public_address,timestamp,req.body.drug_name,req.body.drug_manufacturer, req.body.patient_age,req.body.practice_id,req.body.drug_dosage,req.body.drug_frequency,req.body.doctor_name,req.body.doctor_license_number,req.body.patient_address],(err,result)=>{
+        if(err){
             res.send(err)
         }else{
-            res.json({
-                status:200,
-                timestamp:Date.now(),
-                result:result
-            })
+            res.send("SUCCESS")
         }
-    } );
+    })
+})
+
+
+app.get("/get-prescription",(req,res)=> {
+    const patient_public_address = req.query.address;
+    console.log("Attempting to retrieve prescriptions for user")
+    db.query("SELECT * FROM prescription WHERE patient_address=?",[patient_public_address],(err,result)=> {
+        if(err){
+            res.send(err)
+        }else{
+            res.send(result)
+        }
+    })
 })
 
 
@@ -123,6 +133,22 @@ app.get("/get-user",(req,res)=>{
     }))
 })
 
+app.get("/get-all-users",(req,res)=>{
+  db.query("SELECT * FROM users",(err,result)=>{
+      if(err){
+          res.send(err);
+      }else{
+          const array = []
+          for(var i = 0; i<result.length; ++i){
+               const user = new User(result[i].public_address, result[i].first_name,result[i].last_name)
+               array.push(user)
+          }
+          res.send(array)
+      }
+  })
+})
+
+
 
 app.post("/submit-approve",(req,res)=>{
     console.log("the request body is", req.body)
@@ -147,6 +173,18 @@ app.get("/approve-list",(req,res) => {
         }else{
             console.log(result[0].approved_users)
             res.send(result[0].approved_users);
+        }
+    })
+})
+
+app.post("/prescribe-patient",(req,res)=>{
+    console.log("Prescribing prescription to patient")
+    console.log("The request is", req.body.doctor_public_address)
+    db.query("INSERT INTO prescription (doctor_public_address,drug_name) VALUES (? ? ? ? ? ? ? ? ? ? ? ? ?)",[req.body.doctor_public_address,req.body.drug_name],(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send(result)
         }
     })
 })

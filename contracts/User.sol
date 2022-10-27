@@ -14,6 +14,10 @@ contract User {
     }
 
 
+
+
+
+
     constructor() {
 
     }
@@ -26,30 +30,27 @@ contract User {
         return Users[_address];
     }
 
-    function assignRoleToPatient(address _address) external  returns(string memory){
+    function assignRoleToPatient(address _address) external  {
         Users[_address].userRole = "PATIENT";
-        return Users[_address].userRole;
+
     }
 
-    function assignRoleAsDoctor(address _address) external returns(string memory) {
+    function assignRoleAsDoctor(address _address) external  {
         Users[_address].userRole = "DOCTOR";
-        return Users[_address].userRole;
 
     }
 
-    function assignRoleAsChemist(address _address) external returns(string memory) {
+    function assignRoleAsChemist(address _address) external  {
         Users[_address].userRole = "CHEMIST";
         return Users[_address].userRole;
 
     }
 
-    function getUserRole(address _address) view external returns(string memory){
+    function getUserRole(address _address) view external {
         return Users[_address].userRole;
     }
 
-    function testCall() view external returns(string memory){
-        return "Test call successful";
-    }
+
 
     function giveApproval(address userToBeApproved, address user) external returns(address[] memory){
         uint i = 0;
@@ -58,5 +59,12 @@ contract User {
         Users[user].flag = i;
         return Users[user].approvedAddress;
     }
+
+    function getApprovedArray(address user) view external returns(address[] memory){
+        return Users[user].approvedAddress;
+    }
+
+
+
 
 }

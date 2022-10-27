@@ -48,7 +48,7 @@ function Landing(props)
                     props.onAddressUpdate(account);
                     localStorage.setItem("public_address",account);
 
-                /*    const params = new URLSearchParams([['address',userAccount[0].toString()]]);
+                  const params = new URLSearchParams([['address',userAccount[0].toString()]]);
 
                     const doesExist = await axios.get("http://localhost:3001/search",{params})
 
@@ -67,15 +67,9 @@ function Landing(props)
                             console.log("The result of smart contract call was", result)
                             navigate("/Register");
                     }else{
-                        alert("TODO IMPLEMENT DASHBOARD")
-                    }*/
+                        navigate("/Dashboard")
+                    }
 
-                    const UserContract = new web3.eth.Contract(User.value,"0x8b44D1Cd7Ea0021280B40384165b8a2aF42c4dE2",{
-                        from:userAccount[0].toString()
-                    })
-                    const result = await UserContract.methods.getUserRole(userAccount[0]).call();
-                    console.log("The result from smart contract is ", result)
-                    navigate("/Register");
                 }
             }
         } catch(err) {

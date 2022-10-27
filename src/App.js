@@ -8,6 +8,7 @@ import {useState} from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import RequestApproval from "./Prescription/RequestApproval";
 import Approvals from "./Prescription/Approvals";
+import Prescription from "./Prescription/Prescription";
 
 function App() {
     const[ethBalance, setEthBalance] = useState(" ");
@@ -30,6 +31,7 @@ function App() {
            <Route path="/Dashboard" element={<Dashboard public_address={public_address}/>}/>
            <Route path="/Dashboard/Request-Approval" element={<RequestApproval public_address={public_address}/>}/>
            <Route path="/Dashboard/Approvals" element={<Approvals/>}/>
+           <Route path="/Dashboard/New-Prescription" element={<Prescription/>}/>
        </Routes>
       </Router>
 

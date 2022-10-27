@@ -25,7 +25,7 @@ const CardButton = props => {
 
 const invokeRole = async (public_address,title,web3,navigate) =>   {
 
-    const UserContract = new web3.eth.Contract(User.value,"0x7887d3bdc914eC484513F9E2c5E20B7F137218C1",{
+    const UserContract = new web3.eth.Contract(User.value,"0xEeA1fcb8280d3723d0930C5fB8281D93929D4e2f",{
         from:public_address
     })
 
