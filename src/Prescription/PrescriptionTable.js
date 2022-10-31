@@ -42,7 +42,7 @@ function PrescriptionTable(props){
 
 const getApprovedArray = async (address,web3) => {
 
-        const UserContract = new web3.eth.Contract(User.value, "0xEeA1fcb8280d3723d0930C5fB8281D93929D4e2f", {
+        const UserContract = new web3.eth.Contract(User.value, "0x2A0779387faE48b104af76C86835c13A457a4Ea5", {
             from: address
         })
         const arrResult = await UserContract.methods.getApprovedArray(address).call();

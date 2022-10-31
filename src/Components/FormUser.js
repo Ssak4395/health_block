@@ -19,6 +19,8 @@ const initialValues = {
 
 const FormUser =(props) => {
     const navigate = useNavigate()
+    const address = localStorage.getItem("public_address");
+    console.log("the address is", address)
     return(
         <div className="MaterialForm">
             <div><h1 style={{textAlign:'center',paddingTop:'100px',paddingBottom:'100px',color:"black"}}>Please enter your details</h1></div>
@@ -27,12 +29,12 @@ const FormUser =(props) => {
                     firstName:values.firstName,
                     lastName:values.lastName,
                     address: values.address,
-                    dateOfBirth:values.dateOfBirth,
+                    date:values.dateOfBirth,
                     ihiNumber:values.ihiNumber,
                     gender: values.gender,
-                    public_address: props.public_address
+                    public_address: address
                 }
-                submitToDatabase(values,navigate)
+                submitToDatabase(toSend,navigate)
                 formikHelpers.resetForm();
             }}
             validationSchema={object({
@@ -70,13 +72,14 @@ const submitToDatabase  = async (values,navigate) => {
 
     const result = await axios.post("http://localhost:3001/submit-details", {
         public_address: values.public_address,
-        firstName: values.firstName,
-        lastName: values.lastName,
+        first_name: values.firstName,
+        last_name: values.lastName,
         address: values.address,
-        ihiNumber:values.ihiNumber,
+        ihi:values.ihiNumber,
         date:values.date,
         gender:values.gender
     });
+    console.log(values);
     if (result.data.status === 200){
         navigate("/Dashboard")
     }

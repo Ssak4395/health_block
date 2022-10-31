@@ -52,7 +52,7 @@ function Landing(props)
 
                     const doesExist = await axios.get("http://localhost:3001/search",{params})
 
-                    const UserContract = new web3.eth.Contract(User.value,"0x7887d3bdc914eC484513F9E2c5E20B7F137218C1",{
+                    const UserContract = new web3.eth.Contract(User.value,"0xc7587F878563eE89cE2c54BCA522bbffBB326928",{
                         from:userAccount[0].toString()
                     })
 
@@ -64,7 +64,6 @@ function Landing(props)
                         )
                             alert("pushed to database");
                             const result = await UserContract.methods.createUser(userAccount[0]).send();
-                            console.log("The result of smart contract call was", result)
                             navigate("/Register");
                     }else{
                         navigate("/Dashboard")

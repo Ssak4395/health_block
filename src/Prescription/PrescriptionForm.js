@@ -30,7 +30,7 @@ function PrescriptionForm(props){
                 <Box height={100}/>
                 <Formik initialValues={initialValues} onSubmit={(values,formikHelpers) => {
                     console.log("The values are ", values)
-                    formikHelpers.resetForm();
+                    //formikHelpers.resetForm();
                     pushToDatabase(props.web3,address,values)
                 }}
                         validationSchema={object({
@@ -84,7 +84,7 @@ function PrescriptionForm(props){
 }
 
 const pushToDatabase = (web3,address,values) => {
-    const UserContract = new web3.eth.Contract(User.value, "0xEeA1fcb8280d3723d0930C5fB8281D93929D4e2f", {
+    const UserContract = new web3.eth.Contract(User.value, "0x2A0779387faE48b104af76C86835c13A457a4Ea5", {
         from: address
     })
 
@@ -95,6 +95,8 @@ const pushToDatabase = (web3,address,values) => {
             console.log(values.patient_address)
             axios.post("http://localhost:3001/prescribe-patient",{
                 doctor_public_address:address,
+                prescription_number: values.prescription_number,
+                drug_frequency:values.drug_frequency,
                 drug_name:values.drug_name,
                 drug_manufacturer:values.drug_manu,
                 patient_age:values.patient_age,
@@ -107,6 +109,8 @@ const pushToDatabase = (web3,address,values) => {
             }).then((result) => {
                 console.log("result is", result)
             })
+        }else{
+            alert("PERMISSION DENIED, YOUR ROLE IS NOT PERMITTED TO PERFORM THIS ACTION.")
         }
     })
 }

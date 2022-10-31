@@ -25,21 +25,27 @@ const CardButton = props => {
 
 const invokeRole = async (public_address,title,web3,navigate) =>   {
 
-    const UserContract = new web3.eth.Contract(User.value,"0xEeA1fcb8280d3723d0930C5fB8281D93929D4e2f",{
+    const UserContract = new web3.eth.Contract(User.value,"0x2A0779387faE48b104af76C86835c13A457a4Ea5",{
         from:public_address
     })
 
     if(title === 'Doctor'){
-       /*const result = await UserContract.methods.assignRoleAsDoctor(public_address).send();*/
+       const result = await UserContract.methods.assignRoleAsDoctor(public_address).send(function (err,res) {
+           if(err){
+               alert("An error has occurred");
+           }else{
+               alert("Assigned user to DOCTOR ROLE");
+           }
+       });
        navigate("/Profile")
     }
     if(title === 'Patient'){
-        const result = await UserContract.methods.assignRoleToPatient(public_address).call(function (err,res){
+        const result = await UserContract.methods.assignRoleToPatient(public_address).send(function (err,res){
             if(err)
             {
-                console.log("An error occured",err)
+                alert("An error has occurred");
             }else{
-                console.log("The result is",res)
+                alert("Assigned user to PATIENT ROLE");
             }
         });
 
@@ -48,15 +54,14 @@ const invokeRole = async (public_address,title,web3,navigate) =>   {
     }
 
     if(title === 'Pathologist'){
-        const result = await UserContract.methods.assignRoleAsChemist(public_address).call(function (err,res){
+        const result = await UserContract.methods.assignRoleAsChemist(public_address).send(function (err,res){
             if(err)
             {
-                console.log("An error occured",err)
+               alert("An error has occured")
             }else{
-                console.log("The result is",res)
+                alert("Assigned user to PATHOLOGIST ROLE")
             }
         });
-        console.log(result)
         navigate('/Profile')
     }
 }

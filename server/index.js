@@ -55,12 +55,15 @@ app.post('/add',(req,res) => {
 app.post("/prescribe-patient",(req,res)=>{
     console.log("Prescribing prescription to patient")
     console.log("The request is", req.body.doctor_public_address)
+    console.log("the request is", req.body)
     const timestamp = Date.now().toString();
     const id = 1;
-    db.query("INSERT into prescription (doctor_public_address,created_date,drug_name,drug_manufacturer,patient_age,practice_id,drug_dosage,drug_frequency,doctor_name,doctor_license_number,patient_address) VALUES ( ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[req.body.doctor_public_address,timestamp,req.body.drug_name,req.body.drug_manufacturer, req.body.patient_age,req.body.practice_id,req.body.drug_dosage,req.body.drug_frequency,req.body.doctor_name,req.body.doctor_license_number,req.body.patient_address],(err,result)=>{
+    db.query("INSERT into prescription (doctor_public_address,created_date,prescription_number,drug_name,drug_manufacturer,patient_age,practice_id,drug_dosage,drug_frequency,doctor_name,doctor_license_number,patient_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)",[req.body.doctor_public_address,timestamp,req.body.prescription_number,req.body.drug_name,req.body.drug_manufacturer,req.body.patient_age,req.body.practice_id,req.body.drug_dosage,req.body.drug_frequency,req.body.doctor_name,req.body.doctor_license_number,req.body.patient_address],(err,result)=>{
         if(err){
+            console.log(err)
             res.send(err)
         }else{
+            console.log("It worked")
             res.send("SUCCESS")
         }
     })
@@ -177,14 +180,45 @@ app.get("/approve-list",(req,res) => {
     })
 })
 
-app.post("/prescribe-patient",(req,res)=>{
-    console.log("Prescribing prescription to patient")
-    console.log("The request is", req.body.doctor_public_address)
-    db.query("INSERT INTO prescription (doctor_public_address,drug_name) VALUES (? ? ? ? ? ? ? ? ? ? ? ? ?)",[req.body.doctor_public_address,req.body.drug_name],(err,result)=>{
-        if(err){
+
+app.post("/submit-details",(req,res) => {
+
+    console.log("The req is", req.body.date);
+
+    db.query("UPDATE users SET first_name = ?, last_name = ? ,address = ? ,date = ?,ihi_number=?,gender=? WHERE public_address=?",[req.body.first_name,req.body.last_name,req.body.address,req.body.date,req.body.ihi,req.body.gender,req.body.public_address],(err,result) => {
+        if(err)
+        {
+            console.log(err)
             res.send(err)
         }else{
-            res.send(result)
+            res.json({
+                status:200,
+                timestamp:Date.now(),
+                result:result
+            })
+        }
+    } );
+})
+
+
+app.post("/create-appointment",(req,res)=>{
+    console.log(req.body)
+    db.query("INSERT INTO appointment (appointment_date,appointment_address,appointment_notes,appointment_doctor_name,appointment_type,doctor_public_address,patient_public_address) VALUES (?,?,?,?,?,?,?)",[req.body.appointment_date,req.body.appointment_address,req.body.appointment_notes,req.body.appointment_doctor_name,req.body.appointment_type,req.body.doctor_public_address,req.body.patient_public_address],(err,result)=>{
+        if(err){
+            res.send(err);
+        }else{
+            res.send("OK")
+        }
+    })
+})
+
+app.get("/get-appointments",(req,res)=>{
+    const public_address = req.query.address;
+    db.query("SELECT * FROM appointment WHERE doctor_public_address = ?",[public_address],(err,result)=> {
+        if(err){
+            res.send(err);
+        }else{
+            res.send(result);
         }
     })
 })

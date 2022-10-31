@@ -14,6 +14,24 @@ let User = {
                     "internalType": "address",
                     "name": "_address",
                     "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "prescription_id",
+                    "type": "string"
+                }
+            ],
+            "name": "approvedPrescription",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
                 }
             ],
             "name": "assignRoleAsChemist",
@@ -68,6 +86,30 @@ let User = {
         {
             "inputs": [
                 {
+                    "internalType": "string",
+                    "name": "a",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "b",
+                    "type": "string"
+                }
+            ],
+            "name": "compareStrings",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
                     "internalType": "address",
                     "name": "_address",
                     "type": "address"
@@ -93,9 +135,29 @@ let User = {
                             "type": "uint256"
                         },
                         {
+                            "internalType": "uint256",
+                            "name": "verifiedPrescriptionsFlag",
+                            "type": "uint256"
+                        },
+                        {
                             "internalType": "address[]",
                             "name": "approvedAddress",
                             "type": "address[]"
+                        },
+                        {
+                            "internalType": "string[]",
+                            "name": "verifiedPrescriptions",
+                            "type": "string[]"
+                        },
+                        {
+                            "internalType": "uint256[]",
+                            "name": "verifiedPrescriptionTimeStamp",
+                            "type": "uint256[]"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "timestampFlag",
+                            "type": "uint256"
                         }
                     ],
                     "internalType": "struct User.User",
@@ -120,6 +182,25 @@ let User = {
                     "internalType": "address[]",
                     "name": "",
                     "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "getApprovedPrescriptionArray",
+            "outputs": [
+                {
+                    "internalType": "string[]",
+                    "name": "",
+                    "type": "string[]"
                 }
             ],
             "stateMutability": "view",
