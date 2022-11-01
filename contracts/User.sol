@@ -5,17 +5,18 @@ contract User {
     mapping(address=>string) internal roles;
     mapping(address=>User) internal Users;
 
-
     struct   User{
         address userAddress;
         string userRole;
         uint flag;
+        uint confirmedAppointmentsFlag;
         uint verifiedPrescriptionsFlag;
         address[] approvedAddress;
         string[]  verifiedPrescriptions;
         uint[] verifiedPrescriptionTimeStamp;
         uint timestampFlag;
         bool doesExist;
+        string[] confirmedAppointments;
 
     }
 
@@ -29,8 +30,10 @@ contract User {
         address[] memory arr;
         string[] memory arr2;
         uint[] memory arr3;
+        string[] memory confirmedAppointments;
         bool exist = true;
-        User memory user = User({userAddress:_address,userRole:"",flag:0,approvedAddress:arr,verifiedPrescriptions:arr2,verifiedPrescriptionsFlag:0,timestampFlag:0,verifiedPrescriptionTimeStamp:arr3,doesExist:exist});
+        uint confirmedFlag;
+        User memory user = User({userAddress:_address,userRole:"",flag:0,approvedAddress:arr,verifiedPrescriptions:arr2,verifiedPrescriptionsFlag:0,timestampFlag:0,verifiedPrescriptionTimeStamp:arr3,doesExist:exist,confirmedAppointments:confirmedAppointments,confirmedAppointmentsFlag:confirmedFlag});
         Users[_address] = user;
         return Users[_address];
     }
@@ -70,6 +73,8 @@ contract User {
         return Users[user].approvedAddress;
     }
 
+
+
     function getApprovedArray(address user) view external returns(address[] memory){
         return Users[user].approvedAddress;
     }
@@ -79,12 +84,25 @@ contract User {
         _;
     }
 
+    modifier onlyDoctor(address walletAddress) {
+        require(compareStrings(Users[walletAddress].userRole,"DOCTOR")==true);
+        _;
+    }
+
     function approvedPrescription(address _address,string memory prescription_id) onlyPatient(_address) external returns(string memory){
         uint i = 0;
         ++i;
         Users[_address].verifiedPrescriptions.push(prescription_id);
         Users[_address].verifiedPrescriptionsFlag = i;
         return "SUCCESS";
+    }
+
+    function confirmAppointment(address _addressToConfirm,string memory appointID,address doctorAddress) onlyDoctor(doctorAddress) external returns(string memory){
+        uint i = 0;
+        ++i;
+        Users[_addressToConfirm].confirmedAppointments.push(appointID);
+        Users[_addressToConfirm].confirmedAppointmentsFlag = i;
+        return "Confirmed";
     }
 
 

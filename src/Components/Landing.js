@@ -62,7 +62,7 @@ function Landing(props)
                         setdoesAccountExist(result)
                     })
 
-                    if(doesExist.data.result.length === 0 && doesExist.status === 200 && userAccount[0] !== "" && userAccount[0] !== undefined && doesAccountExist === false){
+                    if(doesExist.data.result.length === 0 && doesExist.status === 200 && userAccount[0] !== "" && userAccount[0] !== undefined || (doesAccountExist === false)){
                         const pushToDatabase = await axios.post("http://localhost:3001/add",{
                             public_address:userAccount[0].toString()
                         }
