@@ -5,6 +5,7 @@ import prescriptionImage from "./dashboard-images/prescription.png"
 import appointmentImage from "./dashboard-images/appointment.png"
 import image from "./dashboard-images/upload.png"
 import image2 from "./dashboard-images/prescription_img.png"
+import appointmentConfirm from "./dashboard-images/appointment-confirm.png"
 import confirm from "./dashboard-images/confirm.png"
 import {useNavigate} from "react-router-dom";
 import Web3 from "web3";
@@ -17,16 +18,18 @@ function Container(props){
 
     const[userRole, setUserRole] = useState("");
     const Approval = "Request Approval"
-    const Booking = "Book an appointment"
+    const Booking = "Appointments"
     const UploadDocument = "Upload Document"
     const Prescription = "Create a Prescription"
+    const ConfirmAppointment="Confirm an Appointment"
     const viewPrescriptions = "View your prescriptions";
 
     const ApprovalPara = "Request data approval from patients"
-    const BookingPara = "Book an appointment with a Physician now."
+    const BookingPara = "View and Book appointments."
     const UploadDocumentPara = "Upload and encrypt documents so they can be stored safely in IPFS"
     const PresPara = "Create a prescription for your patients."
     const viewPrescPara = "View and confirm your prescriptions"
+    const ConfirmAppointmentPara="Confirm a patient appointment"
 
 
     const ApprovalClass=  "card-body text-dark bgPrescriptionCard"
@@ -35,6 +38,7 @@ function Container(props){
     const approvalClass= "card-body text-dark bgUpload"
     const prescriptionClass = "card-body text-dark bgUpload"
     const prescriptionConfirmationClass = "card-body text-dark bgUpload"
+    const confirmAppointmentClass = "card-body text-dark bgUpload"
 
     const image1 = image
 
@@ -44,7 +48,7 @@ function Container(props){
         const web3 = new Web3(detectCurrentProvider());
         const address = localStorage.getItem("public_address");
 
-        const UserContract = new web3.eth.Contract(User.value, "0x2A0779387faE48b104af76C86835c13A457a4Ea5", {
+        const UserContract = new web3.eth.Contract(User.value, "0x47518BAA6a991E61BBc6761bC1f67b89FB5AdE1d", {
             from: address
         })
         const currentUserRole = UserContract.methods.getUserRole(address).call();
@@ -72,6 +76,14 @@ function Container(props){
         navigate("/Dashboard/My-Prescriptions")
     }
 
+    const navigateAppointment =()=> {
+        navigate("/Dashboard/Appointment")
+    }
+
+    const navigateConfirmBooking = ()=> {
+        navigate("/Dashboard/Confirm-Booking")
+    }
+
     return(
 
        <div className="outer">
@@ -92,7 +104,7 @@ function Container(props){
                        {
                            userRole === "PATIENT" &&
                            <DashboardCard className1={bookingClass} location={appointmentImage} title={Booking}
-                                                                    paragraph={BookingPara} onClick={onclick}/>
+                                                                    paragraph={BookingPara} onClick={navigateAppointment}/>
                        }
                    </div>
                    <div className="card-div">
@@ -112,6 +124,13 @@ function Container(props){
                        {
                            userRole === "DOCTOR" && <DashboardCard className1={prescriptionClass} location={image2} title={Prescription}
                                                                    paragraph={PresPara} onClick={navigatePrescription}/>
+                       }
+                   </div>
+
+                   <div className="card-div">
+                       {
+                           userRole === "DOCTOR" && <DashboardCard className1={confirmAppointmentClass} location={appointmentConfirm} title={ConfirmAppointment}
+                                                                   paragraph={ConfirmAppointmentPara} onClick={navigateConfirmBooking}/>
                        }
                    </div>
 

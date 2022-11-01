@@ -16,6 +16,7 @@ function Landing(props)
 {
     const navigate = useNavigate();
     const [isConnected, setIsConnected] = useState(false);
+    const [doesAccountExist,setdoesAccountExist] = useState(false);
 
 
     const detectCurrentProvider = () => {
@@ -52,12 +53,16 @@ function Landing(props)
 
                     const doesExist = await axios.get("http://localhost:3001/search",{params})
 
-                    const UserContract = new web3.eth.Contract(User.value,"0xc7587F878563eE89cE2c54BCA522bbffBB326928",{
+                    const UserContract = new web3.eth.Contract(User.value,"0x47518BAA6a991E61BBc6761bC1f67b89FB5AdE1d",{
                         from:userAccount[0].toString()
                     })
 
+                    const contractDoesExist = UserContract.methods.doesUserExist(account).call()
+                    contractDoesExist.then(result =>  {
+                        setdoesAccountExist(result)
+                    })
 
-                    if(doesExist.data.result.length === 0 && doesExist.status === 200 && userAccount[0] !== "" && userAccount[0] !== undefined){
+                    if(doesExist.data.result.length === 0 && doesExist.status === 200 && userAccount[0] !== "" && userAccount[0] !== undefined && doesAccountExist === false){
                         const pushToDatabase = await axios.post("http://localhost:3001/add",{
                             public_address:userAccount[0].toString()
                         }

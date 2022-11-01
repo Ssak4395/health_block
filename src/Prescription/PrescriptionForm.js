@@ -84,7 +84,7 @@ function PrescriptionForm(props){
 }
 
 const pushToDatabase = (web3,address,values) => {
-    const UserContract = new web3.eth.Contract(User.value, "0x2A0779387faE48b104af76C86835c13A457a4Ea5", {
+    const UserContract = new web3.eth.Contract(User.value, "0x47518BAA6a991E61BBc6761bC1f67b89FB5AdE1d", {
         from: address
     })
 

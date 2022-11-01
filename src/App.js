@@ -11,6 +11,9 @@ import Approvals from "./Prescription/Approvals";
 import Prescription from "./Prescription/Prescription";
 import MyPrescriptions from "./Prescription/My-Prescriptions";
 import UserPrescriptions from "./Prescription/My-Prescriptions";
+import Appointment from "./Components/Appointment/Appointment";
+import BookAppointment from "./Components/Appointment/Book-Appointment";
+import ConfirmAppointment from "./Components/Appointment/ConfirmAppointment";
 
 function App() {
     const[ethBalance, setEthBalance] = useState(" ");
@@ -35,6 +38,9 @@ function App() {
            <Route path="/Dashboard/Approvals" element={<Approvals/>}/>
            <Route path="/Dashboard/New-Prescription" element={<Prescription/>}/>
            <Route path="/Dashboard/My-Prescriptions" element={<UserPrescriptions/>}/>
+           <Route path="/Dashboard/Appointment" element={<Appointment/>}/>
+           <Route path="/Dashboard/Appointment/Book-Appointment" element={<BookAppointment/>}/>
+           <Route path="/Dashboard/Confirm-Booking" element={<ConfirmAppointment/>}/>
        </Routes>
       </Router>
 

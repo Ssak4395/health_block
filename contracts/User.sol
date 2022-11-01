@@ -15,6 +15,8 @@ contract User {
         string[]  verifiedPrescriptions;
         uint[] verifiedPrescriptionTimeStamp;
         uint timestampFlag;
+        bool doesExist;
+
     }
 
 
@@ -27,9 +29,14 @@ contract User {
         address[] memory arr;
         string[] memory arr2;
         uint[] memory arr3;
-        User memory user = User({userAddress:_address,userRole:"",flag:0,approvedAddress:arr,verifiedPrescriptions:arr2,verifiedPrescriptionsFlag:0,timestampFlag:0,verifiedPrescriptionTimeStamp:arr3});
+        bool exist = true;
+        User memory user = User({userAddress:_address,userRole:"",flag:0,approvedAddress:arr,verifiedPrescriptions:arr2,verifiedPrescriptionsFlag:0,timestampFlag:0,verifiedPrescriptionTimeStamp:arr3,doesExist:exist});
         Users[_address] = user;
         return Users[_address];
+    }
+
+    function doesUserExist(address _address) external view returns(bool) {
+        return Users[_address].doesExist;
     }
 
     function assignRoleToPatient(address _address) external  returns(string memory){
@@ -53,9 +60,7 @@ contract User {
         return Users[_address].userRole;
     }
 
-    function testCall() view external returns(string memory){
-        return "Test call successful";
-    }
+
 
     function giveApproval(address userToBeApproved, address user) external returns(address[] memory){
         uint i = 0;
@@ -79,6 +84,7 @@ contract User {
         ++i;
         Users[_address].verifiedPrescriptions.push(prescription_id);
         Users[_address].verifiedPrescriptionsFlag = i;
+        return "SUCCESS";
     }
 
 
@@ -86,7 +92,7 @@ contract User {
         return Users[_address].verifiedPrescriptions;
     }
 
-    function compareStrings(string memory a, string memory b) public view returns (bool) {
+    function compareStrings(string memory a, string memory b) public pure returns (bool) {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
     }
 

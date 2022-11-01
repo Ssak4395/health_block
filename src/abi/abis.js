@@ -22,7 +22,13 @@ let User = {
                 }
             ],
             "name": "approvedPrescription",
-            "outputs": [],
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
             "stateMutability": "nonpayable",
             "type": "function"
         },
@@ -104,7 +110,7 @@ let User = {
                     "type": "bool"
                 }
             ],
-            "stateMutability": "view",
+            "stateMutability": "pure",
             "type": "function"
         },
         {
@@ -158,6 +164,11 @@ let User = {
                             "internalType": "uint256",
                             "name": "timestampFlag",
                             "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "doesExist",
+                            "type": "bool"
                         }
                     ],
                     "internalType": "struct User.User",
@@ -166,6 +177,25 @@ let User = {
                 }
             ],
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_address",
+                    "type": "address"
+                }
+            ],
+            "name": "doesUserExist",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -247,19 +277,6 @@ let User = {
                 }
             ],
             "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "testCall",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "stateMutability": "view",
             "type": "function"
         }
     ]

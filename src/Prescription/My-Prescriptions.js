@@ -19,7 +19,7 @@ function UserPrescriptions(){
           axios.get("http://localhost:3001/get-prescription",{params:{
               address:localStorage.getItem("public_address")
               }}).then(result => {
-                  console.log(result.data)
+                  console.log(result)
               localStorage.setItem("myUserList",JSON.stringify(result.data));
               setUserprescriptions(JSON.parse(localStorage.getItem("myUserList") || "[]"));
           })
@@ -38,7 +38,7 @@ function UserPrescriptions(){
               return item.idprescription != id;
           })
         const web3 = new Web3(detectCurrentProvider());
-        const UserContract = new web3.eth.Contract(User.value, "0x2A0779387faE48b104af76C86835c13A457a4Ea5", {
+        const UserContract = new web3.eth.Contract(User.value, "0x47518BAA6a991E61BBc6761bC1f67b89FB5AdE1d", {
             from: localStorage.getItem("public_address")
         })
 
