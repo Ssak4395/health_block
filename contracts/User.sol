@@ -18,10 +18,12 @@ contract User {
         bool doesExist;
         string[] confirmedAppointments;
 
+
     }
 
 
     constructor() {
+
 
     }
 
